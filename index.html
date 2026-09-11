@@ -27,7 +27,11 @@
     </div>
     <div class="top-actions">
       <span class="egg-chip" id="eggChip" hidden>彩蛋 0</span>
-      <button class="icon-btn pulse" id="musicBtn" type="button" aria-label="音乐盒">♪</button>
+      <button class="text-btn hidden" id="mailboxBtn" type="button">信箱</button>
+      <div class="music-wrap">
+        <button class="icon-btn pulse" id="musicBtn" type="button" aria-label="音乐盒">♪</button>
+        <div id="musicPicker" class="music-picker hidden"></div>
+      </div>
       <button class="icon-btn" id="themeBtn" type="button" aria-label="日夜">☾</button>
     </div>
   </header>
@@ -42,8 +46,14 @@
           <i class="nose"></i>
         </span>
       </div>
-      <p class="hand">正在把信封展开…</p>
-      <div class="bar"><i></i></div>
+      <p class="hand" id="loaderHand">Landing——</p>
+      <div class="progress-meter" id="progressMeter">
+        <div class="progress-track">
+          <i id="progressFill"></i>
+          <span class="progress-num" id="progressNum">20%</span>
+        </div>
+      </div>
+      <button class="btn hidden" id="openAfterLoad" type="button">可以打开了</button>
     </div>
   </div>
 
@@ -69,13 +79,27 @@
     </div>
 
     <p class="landing-kicker" id="landingLine">写在信封中的一些话</p>
-    <button class="envelope" id="envelope" type="button" aria-label="打开信封">
-      <span class="flap"></span>
-      <span class="pocket"></span>
-      <span class="letter-peek" id="letterPeek">To. 真真</span>
-      <span class="seal" id="seal">✿</span>
-    </button>
-    <p class="soft landing-hint" id="landingHint">OPen</p>
+    <div class="mailbox">
+      <div class="mail-item">
+        <button class="envelope" id="envelope1" type="button" aria-label="打开第一封信">
+          <span class="flap"></span>
+          <span class="pocket"></span>
+          <span class="letter-peek" id="letterPeek">To. 真真</span>
+          <span class="seal" id="seal">✿</span>
+        </button>
+        <p class="mail-caption">第一封</p>
+      </div>
+      <div class="mail-item">
+        <button class="envelope" id="envelope2" type="button" aria-label="打开第二封信">
+          <span class="flap"></span>
+          <span class="pocket"></span>
+          <span class="letter-peek" id="letterPeek2">To. 真真</span>
+          <span class="seal" id="seal2">✿</span>
+        </button>
+        <p class="mail-caption">第二封</p>
+      </div>
+    </div>
+    <p class="soft landing-hint" id="landingHint">两封信都在这里，点开其中一封</p>
   </div>
 
   <div id="app" class="app hidden">
@@ -85,7 +109,7 @@
           <p class="stamp" id="todayStamp">今天</p>
           <h1 class="hero-title"><span id="herNameHero">真真</span></h1>
           <p class="hero-sub" id="subtitle">一些适合慢慢看的内容</p>
-          <p class="from-line">from <span id="myNameHero">狗晨</span> · 几页信纸</p>
+          <p class="from-line" id="fromLine">from <span id="myNameHero">狗晨</span> · 几页信纸</p>
         </div>
 
         <button class="vn-box" id="vnBox" type="button">
@@ -96,7 +120,7 @@
 
         <div class="nav-grid" id="navGrid"></div>
 
-        <div class="home-row">
+        <div class="home-row" id="homeRow">
           <article class="paper-card tilt-right">
             <div class="tape mint"></div>
             <h3>今天</h3>
@@ -142,9 +166,9 @@
           <p class="letter-sign" id="letterSign"></p>
           <button class="btn ghost" id="replayLetter" type="button">再读一遍</button>
         </article>
-        <article class="paper-card makeup-card">
+        <article class="paper-card makeup-card" id="sideCard">
           <div class="tape pink"></div>
-          <p class="makeup-tag">100字妆容夸赞</p>
+          <p class="makeup-tag" id="sideTag">100字妆容夸赞</p>
           <h3 id="makeupTitle">底妆很清透底很服帖！鼻翼这些容易卡粉的小细节都处理的很好（有仔细观察）很像原生皮肤！妆面质感超好（100字）</h3>
         </article>
       </section>
@@ -152,7 +176,7 @@
       <section class="page" id="page-time" data-page="time">
         <div class="section-head">
           <h2 class="cute-title">日子的可视化</h2>
-          <p class="soft">认识了多少天，和还可以倒数的那些日子。</p>
+          <p class="soft">相识从 7.21 起。还可以倒数的那些日子，在下面。</p>
         </div>
         <div class="timeline" id="timeline"></div>
         <div class="time-grid">
@@ -181,7 +205,7 @@
       <section class="page" id="page-memories" data-page="memories">
         <div class="section-head">
           <h2 class="cute-title" id="memoriesTitle">碎片墙</h2>
-          <p class="soft">一些拍立得。点开可以看全图。</p>
+          <p class="soft" id="memoriesHint">一些拍立得。点开可以看全图。</p>
         </div>
         <div class="memory-stage">
           <button class="petal-egg" data-egg="9" type="button" aria-label="一片樱花">✿</button>
@@ -204,15 +228,139 @@
         <div class="night-field">
           <p class="soft center night-copy">点击星星五次有彩蛋！</p>
           <button class="secret-star" id="secretStar" type="button" aria-label="星星">✦</button>
-          <article class="paper-card hidden" id="secretCard">
-            <h3>找到啦</h3>
-            <p id="hiddenMessage"></p>
-          </article>
+          <p class="star-words hidden" id="secretCard"><span id="hiddenMessage"></span></p>
         </div>
       </section>
     </main>
 
     <nav class="dock" id="dock" aria-label="栏目"></nav>
+  </div>
+
+  <div id="app2" class="app app2 hidden">
+    <main>
+      <section class="page active" id="page2-home" data-page="home">
+        <div class="v2-hero">
+          <p class="stamp" id="v2Today" data-v2-egg="5" role="button" tabindex="0">今天</p>
+          <h1 class="hero-title" id="v2HeroName">To 真真</h1>
+          <p class="hero-sub" id="v2Subtitle">分别过后</p>
+          <p class="from-line" id="v2From" data-v2-egg="6" role="button" tabindex="0">from 狗晨</p>
+          <button class="v2-seal" data-v2-egg="0" type="button" aria-label="一枚樱花印">
+            <span class="sakura-icon" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          </button>
+          <div class="v2-meter">
+            <div class="home-progress"><i id="v2ProgressFill"></i></div>
+            <button class="v2-spark" data-v2-egg="4" type="button" aria-label="百分之四十尽头的光">✦</button>
+          </div>
+        </div>
+        <div class="v2-stats" id="v2Stats">
+          <article class="paper-card tilt-right">
+            <div class="tape mint"></div>
+            <h3>见面</h3>
+            <p class="big-num" id="v2DaysMet">0<small> 天</small></p>
+            <p class="soft" id="v2MetLabel">第一次见面 · 8.9</p>
+          </article>
+          <article class="paper-card">
+            <div class="tape pink"></div>
+            <h3>分别</h3>
+            <p class="big-num" id="v2DaysParted">0<small> 天</small></p>
+            <p class="soft" id="v2PartedLabel">从 8.29 起</p>
+          </article>
+          <article class="paper-card tilt-left">
+            <div class="tape lemon"></div>
+            <h3>相识</h3>
+            <p class="big-num" id="v2DaysKnown">0<small> 天</small></p>
+            <p class="soft" id="v2KnownLabel">从 7.21 起</p>
+          </article>
+        </div>
+        <div class="v2-doors">
+          <button class="v2-door" type="button" data-v2="letter">
+            <b>信</b>
+            <span>分别过后写下的一封</span>
+          </button>
+          <button class="v2-door album" type="button" data-v2="album">
+            <b>相册</b>
+            <span>夜色，和掌心里的</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="page" id="page2-time" data-page="time">
+        <div class="section-head">
+          <h2 class="cute-title" id="v2TimeTitle" data-v2-egg="9" role="button" tabindex="0">日子的可视化</h2>
+          <p class="soft">相识、见面、分别。点一点线上的日子，有时会说话。</p>
+        </div>
+        <div class="timeline" id="timeline2"></div>
+        <div class="time-grid">
+          <article class="paper-card clock-card">
+            <h3>相识</h3>
+            <p class="mega" id="v2MegaKnown">0</p>
+            <p class="soft" id="v2MegaKnownLabel"></p>
+          </article>
+          <article class="paper-card clock-card">
+            <h3>分别/h3>
+            <p class="mega" id="v2MegaParted">0</p>
+            <p class="soft" id="v2MegaPartedLabel"></p>
+          </article>
+          <article class="paper-card clock-card span-2">
+            <h3 id="v2NextLabel">下次见面</h3>
+            <div class="countdown" id="v2NextCountdown"></div>
+          </article>
+        </div>
+        <article class="paper-card custom-count">
+          <div class="tape lemon"></div>
+          <h3>给下次见面做一个倒数</h3>
+          <div class="row-form">
+            <input id="v2NextDate" type="date" />
+            <input id="v2NextTitle" type="text" maxlength="20" placeholder="比如：下次见面" />
+            <button class="btn" id="saveNextMeet" type="button">开始倒数</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="page" id="page2-letter" data-page="letter">
+        <article class="letter-sheet v2-letter">
+          <div class="letter-head">
+            <span class="wax v2-wax" data-v2-egg="1" role="button" tabindex="0" title="蜡封也可以点">
+              <span class="sakura-icon" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+            </span>
+            <h2 id="v2LetterTitle">第二封</h2>
+          </div>
+          <p class="letter-body" id="letterBody2">真真：
+
+（第二封信，写在这里。）
+
+珍重。</p>
+          <p class="letter-sign" id="v2LetterSign" data-v2-egg="8" role="button" tabindex="0"></p>
+          <button class="btn ghost" id="replayLetter2" type="button">再读一遍</button>
+        </article>
+        <article class="paper-card makeup-card" id="v2SideCard">
+          <div class="tape pink"></div>
+          <p class="makeup-tag" id="v2SideTag">夸夸练习</p>
+          <h3 id="v2MakeupTitle">锻炼夸夸能力中罢</h3>
+        </article>
+      </section>
+
+      <section class="page" id="page2-album" data-page="album">
+        <div class="section-head">
+          <h2 class="cute-title" id="v2AlbumTitle">相册</h2>
+          <p class="soft" id="v2AlbumHint" hidden></p>
+        </div>
+        <div id="albumRoot"></div>
+      </section>
+
+      <section class="page" id="page2-secret" data-page="secret">
+        <div class="night-field v2-night">
+          <div class="star-dust" aria-hidden="true">
+            <i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i>
+            <i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i>
+          </div>
+          <p class="soft center night-copy">找齐了。点这颗星星五次。</p>
+          <button class="secret-star" id="v2SecretStar" type="button" aria-label="星星">✦</button>
+          <p class="star-words hidden" id="v2SecretCard"><span id="v2HiddenMessage"></span></p>
+        </div>
+      </section>
+    </main>
+    <nav class="dock" id="dock2" aria-label="第二封信栏目"></nav>
   </div>
 
   <div id="lightbox" class="lightbox hidden" role="dialog" aria-modal="true" aria-label="看全图">

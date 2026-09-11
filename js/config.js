@@ -3,6 +3,10 @@
  *
  * 注意：双引号 "..." 里面不要再写英文双引号，否则整页会挂掉。
  * 字里如果要用引号，写成「这样」或 '这样'。
+ *
+ * 第一封信：下面这些字。
+ * 第二封信：翻到文件末尾的 chapter2，改 letter，以及每张照片的 text。
+ * 右上角音符可以选歌。要加歌，写进 playlist。
  */
 window.SITE = {
   herName: "真真",
@@ -13,15 +17,19 @@ window.SITE = {
   secretWord: "",
   secretHint: "只有我们知道的那句",
 
-  /* 认识的那天，以及一个可以倒数的日子 */
-  meetDate: "2026-08-09",
+  /* 相识 7.21 · 第一次见面 8.9 · 分别 8.29 */
+  meetDate: "2026-07-21",
+  firstMeetDate: "2026-08-09",
+  partedDate: "2026-08-29",
+  nextMeetDate: "2027-01-01",
+  nextMeetLabel: "下次见面",
   specialDate: "2027-01-01",
   specialDateLabel: "下一个值得数着过的日子",
 
   pageTitle: "To 真真",
   subtitle: "一些适合慢慢看的内容",
   landingLine: "写在信封中的一些话",
-  landingHint: "OPen",
+  landingHint: "两封信都在这里，点开其中一封",
 
   letterTitle: "还没寄出的一封",
   letter: `真真：
@@ -85,5 +93,77 @@ window.SITE = {
   hiddenMessage: "真真是like星星一样buling的人，所以请不要经常自我否定和怀疑，如果在迷茫和踌躇的时候，请想到某个角落还有一直柴犬在一直支持真真！！",
 
   musicEnabled: true,
-  musicSrc: "music/eve-kokoro-yohou.mp3"
+  musicSrc: "music/eve-kokoro-yohou.mp3",
+  musicName: "心予報",
+  playlist: [
+    { name: "心予報", src: "music/eve-kokoro-yohou.mp3" },
+    { name: "カタオモイ", src: "music/aimer-kataomoi.mp3" }
+  ],
+
+  /* ========== 第二封信（单独一册，和第一封分开）==========
+   * 只改这里的 letter，以及每张照片的 text（写在照片下面）。
+   */
+  chapter2: {
+    peek: "第二封",
+    subtitle: "分别过后",
+    fromLine: "狗晨",
+    letterTitle: "第二封",
+    makeupTag: " ",
+    makeupTitle: "锻炼夸夸能力中————",
+    albumTitle: "相册",
+    albumHint: "",
+    musicSrc: "music/aimer-kataomoi.mp3",
+    musicName: "カタオモイ",
+    loaderFrom: 20,
+    loaderTo: 40,
+    progressCopy: "从百分之二十，走到百分之四十。",
+    eggs: [
+      "封面上那枚小小的樱花印。",
+      "蜡封也愿意被打开一次。",
+      "日子走到今天之后，还有一颗没画上去的星。",
+      "相册第一叠标题旁边，别着一颗。",
+      "百分之四十的尽头，藏着一粒光。",
+      "封面的日期，也可以点一下。",
+      "from 后面那行字，也算一颗。",
+      "第二叠相册的标题上，还有一颗。",
+      "信末尾的署名，藏着一句。",
+      "「日子的可视化」这几个字，也可以点。"
+    ],
+    hiddenMessage: `找到了浓浓的思念————`,
+    letter: `真真：
+
+恭喜顺利通过答辩！！
+进入下一阶段————
+期待真真的进步和成长
+同时也希望自己可以保持恒心
+
+继续保持思考，规律生活，持续学习
+就这样坚持每一天一起努力下去罢————
+
+
+珍重喔。
+`,
+    album: [
+      {
+        heading: "忆苏州河V2",
+        copy: "一些视角！",
+        shots: [
+          { photo: "photo2/10207b566c13d7294fcb348aa3eb6234.jpg", text: "" },
+          { photo: "photo2/15c20052e87c8ff659684a2f77486b42.jpg", text: "" },
+          { photo: "photo2/6c698dc98ae663352740479bc59cce4a.jpg", text: "" },
+          { photo: "photo2/922b6204fd067ff2160a6bd0bb3be9ac.jpg", text: "" }
+        ]
+      },
+      {
+        heading: "记录得美好瞬间",
+        copy: "会爱上寿喜烧得———",
+        shots: [
+          { photo: "photo2/cb8eb34ad1bdbe64772b522ed74e65b8.jpg", text: "" },
+          { photo: "photo2/69d235e048832cb2cddcc45fe62b1b49.jpg", text: "" },
+          { photo: "photo2/c5cb4578eacc535922e446068e8ca113.jpg", text: "" },
+          { photo: "photo2/aef051f89aea9fee0eafa5a07ccc8b95.jpg", text: "" }
+        ]
+      }
+    ]
+  }
 };
